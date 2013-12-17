@@ -26,5 +26,4 @@ class base_controller {
 			$this->template->set_global('user', $this->user);
 			
 	}
-	
-} # eoc
+}
