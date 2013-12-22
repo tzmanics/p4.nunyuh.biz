@@ -1,14 +1,10 @@
 <h1><?=$user->username?>'s PROFILE PAGE</h1>
 
 <div class="posts">  
-	  
-	<ul class="tabs">  
-		<li class="tab-link current" data-tab="yourPosts">Your Posts</li>  
-		<li class="tab-link" data-tab="theirPosts">Their Posts</li>    
-	</ul>  
-	  <div id ="container">
-	<div id="yourPosts" class="tab-content current">  
-		<h2>YOUR POSTS</h2>
+<h2>YOUR POSTS</h2>
+	  <div class ="container">
+	<div id="yourPosts">  
+		
 	
 			<?php foreach($yourPosts as $post): ?>
 
@@ -25,11 +21,17 @@
 				</div>
 			<?php endforeach; ?>
 	
-		<p>Click <a href='/posts/add'>HERE</a> to add more Posts</p>
+		
 	</div>  
+	
+	</div>
+	<p>Click <a href='/posts/add'>HERE</a> to add more Posts</p><br><br>
+
+<h2>THEIR POSTS</h2>
+	 <div class ="container">
 	  
-	<div id="theirposts" class="tab-content">  
-		<h2>THEIR POSTS</h2>
+
+	<div id="theirPosts" >  
 			<?php foreach($theirPosts as $post): ?>
 
 			<div class='item'>
@@ -39,12 +41,14 @@
 					<p><a href="/posts/pages/<?=$post['post_id']?>"><?=$post['post_title']?></a></p>
 					<time datetime="<?=Time::display($post['created'],'d M y')?>">
 					<?=Time::display($post['created'])?>
-					<a href="/posts/unfollow/<?=$post['post_user_id']?>">[-]</a>
+					<a href="/posts/unfollow/<?=$post['post_user_id']?>" title='unFollow'>[-]</a>
 					</time><br>
 				</div>
 			</div>
 			<?php endforeach; ?>
+
+			</div>
 	</div> 
 	</div>
   
-</div><!-- posts -->  
+</div>

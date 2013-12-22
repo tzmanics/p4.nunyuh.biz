@@ -9,8 +9,7 @@ class users_controller extends base_controller {
     } 
 
     public function index() {
-        $this->template->title = 'SOCI';
-        echo $this->template;
+        Router::redirect("/users/profile");
     }
 
     public function signup($email_exists = NULL, $invalid_email = NULL,  $empty_field = NULL) {
@@ -189,6 +188,7 @@ class users_controller extends base_controller {
 
         # pass data to view
         $this->template->content->posts = $posts;
+        $this->template->content->user = $username;
 
         # Now set the <title> tag
         $this->template->title = $username."'s SOCI";   

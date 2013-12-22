@@ -1,5 +1,6 @@
 
-<h2>Sign up & Join the Fun!</h2>
+<div class='forms'>
+<h1>SIGN UP</h1>
  <div id='error'><h3><?php if ($email_exists) echo 'We already gots that email.<br>'; 
 						   if ($email_exists) echo 'Sorry that username is being used.<br>'; 
  						   if ($invalid_email) echo "That ain't not no email.<br>"; 
@@ -16,3 +17,4 @@
 	<input type='submit' value='Sign Up'>
 
 </form>
+</div>

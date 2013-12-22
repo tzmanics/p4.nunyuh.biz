@@ -1,4 +1,6 @@
-	<div id="container">
+	<h1>posts from <?=$user?>
+	<a href="/posts/follow/<?=$post['user_id']?>" title='Follow'>[+]</a></h1>
+	<div class="container">
 		<?php foreach($posts as $post): ?>
 
 			<div class='item'>

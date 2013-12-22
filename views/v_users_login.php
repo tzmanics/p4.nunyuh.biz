@@ -1,3 +1,5 @@
+
+<div class="forms">
 <h1>LOG IN</h1>
 
 	<!-- show if login error -->
@@ -12,9 +14,8 @@
 	Username: <input type = 'text' name='username'><br><br>
 	Password: <input type = 'password' name='password'><br><br>
 
-	<input type='Submit' value='Log In'>
-
-	<p>Not a member?
-	<input type='button' value='Sign Up!' onclick='location.href="/users/signup";'></p>
+	<input type='Submit' value='Log In'><br>
+	<input type='button' value='Sign Up!' onclick='location.href="/users/signup";'>
 
 </form>
+</div>

@@ -37,12 +37,6 @@ class posts_controller extends base_controller {
             # insert into DB
              DB::instance(DB_NAME)->insert('posts', $_POST);
 
-              # Set up the view
-    		$view = View::instance('v_posts_p_add');
-
-		    # Pass data to the view
-		    $view->created = $_POST['created'];
-
             # feedback
             echo 'upload success! <a href="/posts/add">Add another!</a>';
     }
@@ -130,6 +124,10 @@ class posts_controller extends base_controller {
 	}
 
 	public function follow($user_id_followed){
+		 # not authemticated: redirect
+        if(!$this->user){
+            Router::redirect('/users/login');
+        }
 		# prepare data array to be inserted
 		$data = Array(
 			"created" => Time::now(),
@@ -145,6 +143,11 @@ class posts_controller extends base_controller {
 	}
 
 	public function unfollow($user_id_followed){
+		 # not authemticated: redirect
+        if(!$this->user){
+            Router::redirect('/users/login');
+        }
+
 		# delete the connection
 		$where_condition = 'WHERE user_id = '.$this->user->user_id.' 
 							AND user_id_followed = '.$user_id_followed;
