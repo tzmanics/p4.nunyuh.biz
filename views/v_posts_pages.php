@@ -1,4 +1,7 @@
 
+<div id="postUser">
+	<a href="/users/postPage/<?= $usersID?>"><?= $users?></a>
+</div>
 <?php foreach($posts as $post): ?>
 
 	<div id='postInfo'>

@@ -44,7 +44,7 @@ class posts_controller extends base_controller {
 		    $view->created = $_POST['created'];
 
             # feedback
-            echo 'upload success!';
+            echo 'upload success! <a href="/posts/add">Add another!</a>';
     }
 
 	public function index(){
@@ -141,7 +141,7 @@ class posts_controller extends base_controller {
 		DB::instance(DB_NAME)->insert('users_users', $data);
 
 		# send user back 
-		Router::redirect("/posts");
+		Router::redirect("/");
 	}
 
 	public function unfollow($user_id_followed){
@@ -151,7 +151,7 @@ class posts_controller extends base_controller {
 		DB::instance(DB_NAME)->delete('users_users', $where_condition);
 
 		# send user back
-		Router::redirect("/posts");
+		Router::redirect("/users/profile");
 	}
 
 
@@ -159,7 +159,7 @@ class posts_controller extends base_controller {
 
         # setup view
         $this->template->content = View::instance('v_posts_pages');
-        $this->template->title = $this->user->username;
+        $this->template->title = "SOCI";
 
         # SQL query for posts
         $q = "SELECT *
@@ -168,21 +168,26 @@ class posts_controller extends base_controller {
 
         # run query
         $posts = DB::instance(DB_NAME)->select_rows($q);
-        # pass data to view
+
+       $r = "SELECT user_id
+        	FROM posts
+        	WHERE post_id = ".$post_id;
+
+    	$post_user_id = DB::instance(DB_NAME)->select_field($r);
+
+        $s = "SELECT username
+        	FROM users
+        	WHERE user_id =".$post_user_id;
+
+    	$post_username = DB::instance(DB_NAME)->select_field($s);
+
+    	# pass data to view
+        $this->template->content->users = $post_username;
+        $this->template->content->usersID = $post_user_id;
         $this->template->content->posts = $posts;
 
-/*      # $post_user_id = $posts['user_id'];
-        # print_r ($post_user_id);
 
-     
-        $r = "SELECT username
-        	FROM users
-        	WHERE users.user_id = '1'";
 
-        $post_username = DB::instance(DB_NAME)->select_field($r);
-        $this->template->content->users = $post_username;
-
-*/
         # display view
         echo $this->template;
     }

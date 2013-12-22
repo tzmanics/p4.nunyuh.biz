@@ -9,7 +9,6 @@
 						<time datetime="<?=Time::display($post['created'],'d M y')?>">
 							<?=Time::display($post['created'])?>
 						</time>
-						<a href="/posts/follow/<?=$post['user_id']?>">[+]</a>
 					</div>
 				</div>
 		<?php endforeach; ?>

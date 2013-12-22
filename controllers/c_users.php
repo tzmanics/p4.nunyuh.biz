@@ -138,22 +138,64 @@ class users_controller extends base_controller {
         $this->template->content = View::instance('v_users_profile');
         $this->template->title = $this->user->username."'s Profile";
 
-        # add css and js docs
-        #$client_files_head = Array('/css/profile.css','/css/master.css');
-        #$client_files_body = Array('/js/profile.js');
-
-
         $q = "SELECT *
               FROM posts
               WHERE posts.user_id = ".$this->user->user_id;
 
         $yourPosts = DB::instance(DB_NAME)->select_rows($q);
 
-        # pass the data to the view
-        $this->template->content->yourPosts = $yourPosts;
-        
+        # SQL query
+            $q = "SELECT 
+                    posts.post_title,
+                    posts.created,
+                    posts.image1,
+                    posts.post_id,
+                    posts.user_id AS post_user_id,
+                    users_users.user_id AS follower_id
+                FROM posts
+                INNER JOIN users_users
+                    ON posts.user_id = users_users.user_id_followed
+                WHERE users_users.user_id = ".$this->user->user_id;
+
+            # run query
+            $theirPosts = DB::instance(DB_NAME)->select_rows($q);
+
+            # pass the data to the view
+            $this->template->content->yourPosts = $yourPosts;
+            $this->template->content->theirPosts = $theirPosts;
+            #$this->template->content->users = $users;
+
         # disaply view
         echo $this->template;
+    }
+
+    public function postPage($user_id){
+        # First, set the content of the template with a view file
+        $this->template->content = View::instance('v_users_postPage');
+            
+ 
+        # SQL query
+        $q = "SELECT *
+              FROM posts
+              WHERE posts.user_id = ".$user_id;
+
+        $r = "SELECT username
+            FROM users
+            WHERE users.user_id = ".$user_id;
+
+        # run query
+        $posts = DB::instance(DB_NAME)->select_rows($q);
+        $username = DB::instance(DB_NAME)->select_field($r);
+
+        # pass data to view
+        $this->template->content->posts = $posts;
+
+        # Now set the <title> tag
+        $this->template->title = $username."'s SOCI";   
+                                        
+        # Render the view
+            echo $this->template;
+
     }
 
 
