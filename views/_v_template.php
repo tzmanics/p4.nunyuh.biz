@@ -20,6 +20,7 @@
 		
 		<?php if($user) {echo "<ul class='userMenu'> <li><a href='/users/profile'>".$user->username."</a></li><br>
 		<li class='smlList'><a href='/users/logout'>log out</a></li>
+		<li class='smlList'><a href='/users/postPage/".$user->user_id."'>my blog</a></li>
 		<li class='smlList'><a href='/users/profile'>profile</a></li>
 		<li class='smlList'><a href='/posts/add'>add post</a></li></ul>";
 		} else {echo '<a href="/users/login">login</a> / <a href="/users/signup">signup</a>';}?>
