@@ -19,7 +19,7 @@ $(document).ready(function(){
 	});
 
 	$('.userMenu').hover(function(){
-		$('.userMenu').toggleClass('showMenu');
+		$(this).toggleClass('showMenu');
 	 });
 
 	$('.postHidden').hover(function(){

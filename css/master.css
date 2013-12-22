@@ -3,6 +3,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 html{
 	color: white;
+	min-width: 500px;
 }
 
 a{
@@ -21,7 +22,14 @@ header{
 	font-weight: 100;
 
 }
+h1{
+	font-weight:900;
+	color: gray;
+}
 
+time{
+	font-size: .75em;
+}
 header h1{
 	float: left;
 	font-weight: 800;
@@ -49,8 +57,13 @@ li{
 	margin: 22px 10px 10px 10px;
 	padding-left: 18px;
 }
+
 .item { width: 230px;}
-.item img{ width: 210px; padding: 10px;}
+
+.item img{ 
+	width: 210px; 
+	padding: 10px;
+}
 
 .postHidden{
 	padding-left: 10px;
@@ -64,21 +77,17 @@ li{
 	margin-top: -55px;
 }
 
-.postHidden a{
-	color: rgba(0, 0, 0, 0);
-}
+.postHidden a{color: rgba(0, 0, 0, 0);}
 
 .postShow{
 	background-color: rgba(0, 0, 0, .5);
 	color: white;
 }
 
-.postShow a{
-	color: white;
-}
+.postShow a{color: white;}
 
 
-.smlList{font-size: .42em;}
+.smlList{font-size: .42em; margin-top: -5px;}
 
 .userMenu{
 	height: 38px; 
@@ -90,10 +99,26 @@ li{
 }
 .showMenu{height: 68px;}
 
+#postInfo{
+	width:65%;
+	margin: 20px auto;
+	padding: 30px;
+	color: gray;
+	font-size: 2em;
+	text-align:right;
+}
+
+#postInfo img{
+	width: 400px;
+	display: block;
+	margin: auto;
+	margin-top:22px;
+}
+
 /* for Firefox */
  @-moz-document url-prefix() {
-    header{
-	    height:35px;
-	}
-
+    header{height:35px;}
+    .userMenu{ height:35px;}
+    .showMenu{height:68px;}
+    #container{margin-top: 25px;}
 }

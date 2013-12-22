@@ -161,17 +161,28 @@ class posts_controller extends base_controller {
         $this->template->content = View::instance('v_posts_pages');
         $this->template->title = $this->user->username;
 
-        # SQL query of posts info
+        # SQL query for posts
         $q = "SELECT *
             FROM posts
-            WHERE post_id = ".$tpost_id;
+            WHERE post_id = ".$post_id;
 
         # run query
         $posts = DB::instance(DB_NAME)->select_rows($q);
-
         # pass data to view
         $this->template->content->posts = $posts;
 
+/*      # $post_user_id = $posts['user_id'];
+        # print_r ($post_user_id);
+
+     
+        $r = "SELECT username
+        	FROM users
+        	WHERE users.user_id = '1'";
+
+        $post_username = DB::instance(DB_NAME)->select_field($r);
+        $this->template->content->users = $post_username;
+
+*/
         # display view
         echo $this->template;
     }

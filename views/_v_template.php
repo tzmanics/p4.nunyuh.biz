@@ -30,8 +30,8 @@
 <?php if(isset($content)) echo $content; ?>
 <?php if(isset($client_files_body)) echo $client_files_body; ?>
 
-<script src="js/master.js"></script>
-<script src="js/masonry.pkgd.js"></script>
+<script src="/js/master.js"></script>
+<script src="/js/masonry.pkgd.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 </body>
