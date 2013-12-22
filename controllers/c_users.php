@@ -126,16 +126,33 @@ class users_controller extends base_controller {
         Router::redirect("/");
     }
 
-    public function profile($user_name = NULL){
+
+    public function profile() {
+
+        # not authemticated: redirect
         if(!$this->user){
             Router::redirect('/users/login');
         }
 
-             # set up view & title
+        # setup view
         $this->template->content = View::instance('v_users_profile');
-        $this->template->title = 'PROFILE';
+        $this->template->title = $this->user->username."'s Profile";
 
-        # render view
+        # add css and js docs
+        #$client_files_head = Array('/css/profile.css','/css/master.css');
+        #$client_files_body = Array('/js/profile.js');
+
+
+        $q = "SELECT *
+              FROM posts
+              WHERE posts.user_id = ".$this->user->user_id;
+
+        $yourPosts = DB::instance(DB_NAME)->select_rows($q);
+
+        # pass the data to the view
+        $this->template->content->yourPosts = $yourPosts;
+        
+        # disaply view
         echo $this->template;
     }
 

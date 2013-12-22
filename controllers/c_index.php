@@ -29,6 +29,17 @@ class index_controller extends base_controller {
 	    	$client_files_body = Array("");
 	    	$this->template->client_files_body = Utils::load_client_files($client_files_body);   
 	    	*/
+
+	    # SQL query
+		$q = "SELECT *
+			  FROM posts
+			  ORDER BY posts.created";
+
+		# run query
+		$posts = DB::instance(DB_NAME)->select_rows($q);
+
+		# pass data to view
+		$this->template->content->posts = $posts;	
 	      					     		
 		# Render the view
 			echo $this->template;

@@ -18,9 +18,9 @@ class posts_controller extends base_controller {
 
 			# load js files
 			$client_files_body = Array(
-				"/assets/js/jquery.form.js",
-				"/assets/js/posts_add.js"
-			);
+		        "/js/jquery.form.js",
+		        "/js/posts_add.js"
+		    );
 
 			$this->template->client_files_body = Utils::load_client_files($client_files_body);
 
@@ -29,17 +29,23 @@ class posts_controller extends base_controller {
 			}
 		}
 
-	public function p_add(){
-		# associate post with the user
-		$_POST['user_id'] = $this->user->user_id;
+    public function p_add(){
+            # set up data
+            $_POST['user_id'] = $this->user->user_id;
+            $_POST['created'] = Time::now();
+            
+            # insert into DB
+             DB::instance(DB_NAME)->insert('posts', $_POST);
 
-		# unix timestamp for created & modified
-		$_POST['created'] = Time::now();
-		 DB::instance(DB_NAME)->insert('posts', $_POST);
+              # Set up the view
+    		$view = View::instance('v_posts_p_add');
 
-		# feedback
-		echo "Your post was added";
-	}
+		    # Pass data to the view
+		    $view->created = $_POST['created'];
+
+            # feedback
+            echo 'upload success!';
+    }
 
 	public function index(){
 
@@ -53,7 +59,7 @@ class posts_controller extends base_controller {
 			$this->template->title = "Who You Follow";
 
 			# SQL query
-			$q = "SELECT 
+			$q = "SELECT *
 					posts.content,
 					posts.created,
 					posts.user_id AS post_user_id,
@@ -149,23 +155,16 @@ class posts_controller extends base_controller {
 	}
 
 
-	public function myPosts(){
+	public function pages($post_id){
 
         # setup view
-        $this->template->content = View::instance('v_posts_myPosts');
-        $this->template->title = $this->user->first_name."'s Posts";
-
-        # pass the data to the view
-        $this->template->content->user_name = $user_name;
+        $this->template->content = View::instance('v_posts_pages');
+        $this->template->title = $this->user->username;
 
         # SQL query of posts info
-        $q = "SELECT 
-                posts.content,
-                posts.created,
-                posts.post_id,
-                posts.user_id
+        $q = "SELECT *
             FROM posts
-            WHERE user_id = ".$this->user->user_id;
+            WHERE post_id = ".$tpost_id;
 
         # run query
         $posts = DB::instance(DB_NAME)->select_rows($q);
