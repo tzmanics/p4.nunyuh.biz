@@ -136,6 +136,14 @@ a:hover{color: #656565;}
 	padding-left: 10px;
 }
 
+.forms img{
+
+	width: 200px;
+}
+
+#resultImage1, #resultImage2, #resultImage3, #resultImage4{float:left; margin: 10px;};
+
+
 #results{padding: 10px;}
 /* for Firefox */
  @-moz-document url-prefix() {
