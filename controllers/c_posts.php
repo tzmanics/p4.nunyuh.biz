@@ -7,7 +7,7 @@ class posts_controller extends base_controller {
 
 	public function add() {
 
-		# make sure user is logged in to post
+		# not authemticated: redirect
 		if(!$this->user){
 			Router::redirect("/users/login");
 		} else {
@@ -22,6 +22,7 @@ class posts_controller extends base_controller {
 		        "/js/posts_add.js"
 		    );
 
+			# add client files
 			$this->template->client_files_body = Utils::load_client_files($client_files_body);
 
 			#render view
@@ -35,96 +36,19 @@ class posts_controller extends base_controller {
             $_POST['created'] = Time::now();
             
             # insert into DB
-             DB::instance(DB_NAME)->insert('posts', $_POST);
+            DB::instance(DB_NAME)->insert('posts', $_POST);
 
             # feedback
             echo 'upload success! <a href="/posts/add">Add another!</a>';
     }
 
 	public function index(){
-
-
-		# make sure user is logged in to post
-		if(!$this->user){
-			Router::redirect("/users/login");
-		} else {
-			# set up view and title
-			$this->template->content = View::instance('v_posts_index');
-			$this->template->title = "Who You Follow";
-
-			# SQL query
-			$q = "SELECT *
-					posts.content,
-					posts.created,
-					posts.user_id AS post_user_id,
-					users_users.user_id AS follower_id,
-					users.first_name,
-					users.last_name,
-					users.image
-				FROM posts
-				INNER JOIN users_users
-					ON posts.user_id = users_users.user_id_followed
-				INNER JOIN users
-					ON posts.user_id = users.user_id
-				WHERE users_users.user_id = ".$this->user->user_id;
-
-		    # run query
-			$posts = DB::instance(DB_NAME)->select_rows($q);
-
-			# pass data to view
-			$this->template->content->posts = $posts;
-
-			$q = "SELECT * FROM users";
-
-			# get all users store array in $users
-			$users = DB::instance(DB_NAME)->select_rows($q);
-
-			$q = "SELECT * 
-				FROM users_users 
-				WHERE user_id = ".$this->user->user_id;
-
-			# get users followed store array in $connections 
-			$connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
-
-
-	        # pass the data to the view
-			$this->template->content->users = $users;
-		    $this->template->content->connections = $connections;
-
-			# render view
-			echo $this->template;
-		}
-	}
-
-	public function users() {
-		# set view & title
-		$this->template->content = View::instance("v_posts_users");
-		$this->template->title = "Users";
-
-		# query to get all users
-		$q = "SELECT * FROM users";
-
-	
-
-		# query to find who user following
-		$q = "SELECT * 
-			  FROM users_users 
-			  WHERE user_id = ".$this->user->user_id;
-
-		# get users followed store array in $connections
-		$connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
-
-		# pass users and connections data to view
-		$this->template->content->users = $users;
-		$this->template->content->connections = $connections;
-
-		# render view
-		echo $this->template;
-
+		# send to main page
+		Router::redirect("/");
 	}
 
 	public function follow($user_id_followed){
-		 # not authemticated: redirect
+		# not authemticated: redirect
         if(!$this->user){
             Router::redirect('/users/login');
         }
@@ -160,7 +84,7 @@ class posts_controller extends base_controller {
 
 	public function pages($post_id){
 
-        # setup view
+        # setup view for page for ea post
         $this->template->content = View::instance('v_posts_pages');
         $this->template->title = "SOCI";
 
@@ -172,7 +96,8 @@ class posts_controller extends base_controller {
         # run query
         $posts = DB::instance(DB_NAME)->select_rows($q);
 
-       $r = "SELECT user_id
+        # SQL query for user info
+        $r = "SELECT user_id
         	FROM posts
         	WHERE post_id = ".$post_id;
 
@@ -188,8 +113,6 @@ class posts_controller extends base_controller {
         $this->template->content->users = $post_username;
         $this->template->content->usersID = $post_user_id;
         $this->template->content->posts = $posts;
-
-
 
         # display view
         echo $this->template;

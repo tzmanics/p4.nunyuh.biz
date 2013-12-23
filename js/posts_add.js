@@ -10,6 +10,7 @@ var options = {
     } 
 }; 
 
+// interactively show if image links work
 $('#image1').blur(function(){
 
 	var image1Input = $(this).val();

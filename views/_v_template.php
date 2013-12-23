@@ -17,7 +17,7 @@
 	<h1><a href="/index">SOCI</a></h1>
 	<nav>
 		
-		
+		<!-- user menu or log in/sign in if not logged in -->
 		<?php if($user) {echo "<ul class='userMenu'> <li><a href='/users/profile'>".$user->username."</a></li><br>
 		<li class='smlList'><a href='/users/logout'>log out</a></li>
 		<li class='smlList'><a href='/users/postPage/".$user->user_id."'>my blog</a></li>

@@ -143,8 +143,7 @@ class users_controller extends base_controller {
 
         $yourPosts = DB::instance(DB_NAME)->select_rows($q);
 
-        # SQL query
-            $q = "SELECT 
+        $q = "SELECT 
                     posts.post_title,
                     posts.created,
                     posts.image1,
@@ -156,20 +155,19 @@ class users_controller extends base_controller {
                     ON posts.user_id = users_users.user_id_followed
                 WHERE users_users.user_id = ".$this->user->user_id;
 
-            # run query
-            $theirPosts = DB::instance(DB_NAME)->select_rows($q);
+        # run query
+        $theirPosts = DB::instance(DB_NAME)->select_rows($q);
 
-            # pass the data to the view
-            $this->template->content->yourPosts = $yourPosts;
-            $this->template->content->theirPosts = $theirPosts;
-            #$this->template->content->users = $users;
+        # pass the data to the view
+        $this->template->content->yourPosts = $yourPosts;
+        $this->template->content->theirPosts = $theirPosts;
 
         # disaply view
         echo $this->template;
     }
 
     public function postPage($user_id){
-        # First, set the content of the template with a view file
+        # set view for User's post page
         $this->template->content = View::instance('v_users_postPage');
             
  
@@ -194,7 +192,7 @@ class users_controller extends base_controller {
         $this->template->title = $username."'s SOCI";   
                                         
         # Render the view
-            echo $this->template;
+        echo $this->template;
 
     }
 

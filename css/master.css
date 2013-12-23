@@ -25,6 +25,9 @@ h1{
 	font-weight:900;
 	color: gray;
 }
+h2{
+	padding-left: 10px;
+}
 
 time{font-size: .85em;}
 
@@ -34,7 +37,6 @@ header h1{
 }
 
 header a{
-	
 	padding-right: 15px;
 }
 
@@ -83,9 +85,11 @@ p{	text-align: center;}
 }
 
 .postShow a{color: white;}
-.postShow p, time{text-align: left;font-size:.75em;}
 
-
+.postShow p, time{
+	text-align: left;
+	font-size:.75em;
+}
 
 .smlList{font-size: .42em; margin-top: -5px;}
 
@@ -107,7 +111,6 @@ p{	text-align: center;}
 	font-size: 2em;
 	text-align:right;
 	line-height: 1.2em;
-
 }
 
 #postInfo img{
@@ -119,13 +122,15 @@ p{	text-align: center;}
 
 #postInfo a{font-size: .5em;}
 
-a{color:gray;text-decoration:none;}
+a{
+	color:gray;
+	text-decoration:none;
+}
 
 a:hover{color: #656565;}
 
-#yourPosts{
-	width: 45%;
-}
+#yourPosts{	width: 45%;}
+
 #theirPosts{
 	width: 45%;
 	float: left;
@@ -136,13 +141,12 @@ a:hover{color: #656565;}
 	padding-left: 10px;
 }
 
-.forms img{
+.forms img{	width: 200px;}
 
-	width: 200px;
+#resultImage1, #resultImage2, #resultImage3, #resultImage4{
+	float:left; 
+	margin: 10px;
 }
-
-#resultImage1, #resultImage2, #resultImage3, #resultImage4{float:left; margin: 10px;};
-
 
 #results{padding: 10px;}
 /* for Firefox */
